@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
             $_SESSION['id_no'] = $row['id_no'];
-            header("Location: main.php"); // ✅ Redirect to main page
+            header("Location: main_new.php"); // ✅ Redirect to main page
             exit();
         } else {
             $msg = "<div class='alert alert-danger text-center'>❌ Invalid Password</div>";

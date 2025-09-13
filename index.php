@@ -64,11 +64,282 @@
             gap: 1rem;
             justify-content: center;
         }
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--light);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-body ul {
+            list-style-type: none;
+            margin: 1rem 0;
+        }
+        
+        .card-body ul li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-body ul li i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .tech-item {
+            background: var(--light);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tech-item i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+        
+        .present {
+            color: var(--secondary);
+        }
+        
+        .absent {
+            color: var(--accent);
+        }
+        
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .impact-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .impact-item i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
 
-        .footer {
-            background: #f9fafb;
-            padding: 2rem 0;
-            margin-top: 4rem;
+        footer {
+            background: black;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
         }
 
@@ -88,115 +359,209 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container flex items-center justify-between">
+    <header>
+        <nav>
             <div class="logo">
                 <i class="fas fa-fingerprint"></i>
-                Rural Attendance
+                <span>RuralAttendance</span>
             </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="login.php" class="btn btn-primary">Login</a></li>
-                    <li><a href="signup.php" class="btn btn-secondary">Sign Up</a></li>
-                </ul>
-            </nav>
-        </div>
+            <ul class="nav-links">
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#impact">Impact</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="signup.php">Sign Up</a></li>
+                <li><a href="login.php">Login</a></li>
+            </ul>
+        </nav>
     </header>
 
     <section class="hero">
-        <div class="container">
-            <h1>Smart Attendance System for Rural Schools</h1>
-            <p>An innovative, offline-first biometric attendance solution designed specifically for rural educational institutions</p>
+        <div class="hero-content">
+            <h1>Automated Attendance System for Rural Schools</h1>
+            <p>A low-cost, offline-first, Aadhaar-based biometric attendance system designed specifically for the challenges of rural Indian schools</p>
             <div class="cta-buttons">
-                <a href="login.php" class="btn btn-secondary">Get Started</a>
-                <a href="signup.php" class="btn btn-primary">Create Account</a>
+                <a href="signup.php" class="btn btn-secondary">Get Started</a>
+                <a href="login.php" class="btn btn-primary">Login</a>
             </div>
         </div>
     </section>
 
-    <section class="features">
-        <div class="container">
-            <h2 class="text-center mb-4">Why Choose Our System?</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-edit"></i>
-                    </div>
-                    <h3>Eliminates Manual Entry</h3>
-                    <p>No more paper registers. Automated attendance tracking saves time and reduces errors.</p>
+    <section id="solution" class="container">
+        <div class="section-title">
+            <h2>Proposed Solution</h2>
+            <p>Addressing the challenges of rural education through technology</p>
+        </div>
+        
+        <div class="cards">
+            <div class="card">
+                <div class="card-header">
+                    <h3>The Problem</h3>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-fingerprint"></i>
-                    </div>
-                    <h3>Biometric Accuracy</h3>
-                    <p>Secure and accurate attendance with fingerprint authentication.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <h3>Real-time Alerts</h3>
-                    <p>Instant SMS notifications to parents about their child's attendance.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Analytics Dashboard</h3>
-                    <p>Comprehensive reports and insights for better decision making.</p>
+                <div class="card-body">
+                    <p>Rural schools often rely on cumbersome manual attendance registers, leading to:</p>
+                    <ul>
+                        <li><i class="fas fa-times-circle"></i> Errors and inaccuracies</li>
+                        <li><i class="fas fa-clock"></i> Significant time consumption</li>
+                        <li><i class="fas fa-chart-line"></i> Difficulty in tracking absenteeism</li>
+                        <li><i class="fas fa-user-minus"></i> High dropout rates</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="features" style="background: #f9fafb;">
-        <div class="container">
-            <h2 class="text-center mb-4">Innovation Highlights</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-wifi-slash"></i>
-                    </div>
-                    <h3>Offline First</h3>
-                    <p>Works seamlessly without internet connection.</p>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Our Solution</h3>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-id-card"></i>
-                    </div>
-                    <h3>Aadhaar Integration</h3>
-                    <p>Secure and compliant with Aadhaar authentication.</p>
+                <div class="card-body">
+                    <p>Our system provides a comprehensive solution:</p>
+                    <ul>
+                        <li><i class="fas fa-fingerprint"></i> Aadhaar-based biometric authentication</li>
+                        <li><i class="fas fa-wifi-slash"></i> Offline-first functionality</li>
+                        <li><i class="fas fa-sms"></i> Automated SMS alerts to parents</li>
+                        <li><i class="fas fa-database"></i> Digital reporting for authorities</li>
+                        <li><i class="fas fa-solar-panel"></i> Solar-powered for power outages</li>
+                    </ul>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-battery-full"></i>
-                    </div>
-                    <h3>Battery Backup</h3>
-                    <p>Continues working during power outages.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Key Benefits</h3>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-language"></i>
-                    </div>
-                    <h3>Vernacular Support</h3>
-                    <p>Available in multiple regional languages.</p>
+                <div class="card-body">
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Eliminates manual entry</li>
+                        <li><i class="fas fa-shield-alt"></i> Ensures accuracy with biometrics</li>
+                        <li><i class="fas fa-bell"></i> Promotes accountability with parent alerts</li>
+                        <li><i class="fas fa-chart-pie"></i> Provides real-time data for authorities</li>
+                        <li><i class="fas fa-rupee-sign"></i> Low-cost and scalable</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <p>© 2023 Rural Attendance System. All rights reserved.</p>
-            <div class="mt-4">
-                <a href="https://github.com/yourusername/attendence-system" target="_blank" class="btn btn-primary">
-                    <i class="fab fa-github"></i> View on GitHub
-                </a>
+    <section id="technology" class="container">
+        <div class="section-title">
+            <h2>Technical Approach</h2>
+            <p>Leveraging robust and affordable technology</p>
+        </div>
+        
+        <div class="tech-stack">
+            <div class="tech-item"><i class="fab fa-python"></i> Python</div>
+            <div class="tech-item"><i class="fas fa-database"></i> SQLite</div>
+            <div class="tech-item"><i class="fab fa-html5"></i> HTML/CSS/JavaScript</div>
+            <div class="tech-item"><i class="fas fa-flask"></i> Flask</div>
+            <div class="tech-item"><i class="fas fa-microchip"></i> Raspberry Pi</div>
+            <div class="tech-item"><i class="fas fa-sms"></i> GSM Module</div>
+        </div>
+        
+        <div class="cards">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Hardware Components</h3>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Raspberry Pi 4 (Processing Unit)</li>
+                        <li><i class="fas fa-check"></i> UIDAI-certified Fingerprint Scanner</li>
+                        <li><i class="fas fa-check"></i> GSM Module (for SMS)</li>
+                        <li><i class="fas fa-check"></i> Power Bank/Solar Battery Pack</li>
+                        <li><i class="fas fa-check"></i> Protective Casing</li>
+                    </ul>
+                </div>
             </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Software Components</h3>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Python Backend Logic</li>
+                        <li><i class="fas fa-check"></i> Local SQLite Database</li>
+                        <li><i class="fas fa-check"></i> Flask Web Framework</li>
+                        <li><i class="fas fa-check"></i> UIDAI Authentication API</li>
+                        <li><i class="fas fa-check"></i> SMS Gateway API</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Security Features</h3>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><i class="fas fa-shield-alt"></i> No raw biometric data stored</li>
+                        <li><i class="fas fa-lock"></i> Encrypted templates only</li>
+                        <li><i class="fas fa-shield-virus"></i> Secure data transmission</li>
+                        <li><i class="fas fa-user-lock"></i> Aadhaar-compliant privacy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impact" class="container">
+        <div class="section-title">
+            <h2>Impact & Benefits</h2>
+            <p>Transforming rural education through technology</p>
+        </div>
+        
+        <div class="impact-grid">
+            <div class="impact-item">
+                <i class="fas fa-user-graduate"></i>
+                <h3>Improved Attendance</h3>
+                <p>Real-time tracking reduces absenteeism by up to 70%</p>
+            </div>
+            
+            <div class="impact-item">
+                <i class="fas fa-chart-line"></i>
+                <h3>Better Data</h3>
+                <p>Accurate reporting helps in resource allocation</p>
+            </div>
+            
+            <div class="impact-item">
+                <i class="fas fa-users"></i>
+                <h3>Parental Involvement</h3>
+                <p>SMS alerts keep parents informed and engaged</p>
+            </div>
+            
+            <div class="impact-item">
+                <i class="fas fa-clock"></i>
+                <h3>Time Savings</h3>
+                <p>Reduces administrative workload by 80%</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>We are a team of technologists and educators committed to improving rural education through affordable technology solutions.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <p><i class="fas fa-envelope"></i> contact@ruralattendance.org</p>
+                <p><i class="fas fa-phone"></i> +91 9123792435</p>
+                <p><i class="fas fa-map-marker-alt"></i> Kolkata, India</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="#solution" style="color: #3498db;">Our Solution</a></p>
+                <p><a href="#technology" style="color: #3498db;">Technology</a></p>
+                <p><a href="#demo" style="color: #3498db;">Demo</a></p>
+                <p><a href="#impact" style="color: #3498db;">Impact</a></p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 RuralAttendance. All rights reserved.</p>
         </div>
     </footer>
 

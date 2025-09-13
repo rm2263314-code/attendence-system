@@ -14,6 +14,132 @@ if (!isset($_SESSION['id_no'])) {
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #22c55e;
+            --error: #ef4444;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+        }
+
+        .logo-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .logo-section h1 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+        }
+        .logo-section p {
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 260px;
+            background: white;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        .nav-item i {
+            margin-right: 1rem;
+            font-size: 1.25rem;
+            width: 1.5rem;
+            text-align: center;
+        }
+        .nav-item:hover {
+            background: #f3f4f6;
+        }
+        .nav-item.active {
+            background: var(--primary);
+            color: white;
+        }
+        .mt-auto {
+            margin-top: auto;
+        }
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 2rem;
+            background: #f3f4f6;
+        }
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .top-header h2 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .btn-primary i {
+            margin-right: 0.5rem;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .class-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        .class-tab {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border-radius: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            border: 1px solid var(--border);
+        }
+        .class-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .class-tab:hover:not(.active) {
+            background: #f3f4f6;
+        }
         .student-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -25,9 +151,14 @@ if (!isset($_SESSION['id_no'])) {
             background: white;
             border-radius: 1rem;
             padding: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease;
+            cursor: pointer;
         }
-
+        .student-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15), 0 3px 6px -2px rgba(0, 0, 0, 0.1);
+        }
         .student-header {
             display: flex;
             align-items: center;
@@ -44,10 +175,16 @@ if (!isset($_SESSION['id_no'])) {
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 1.25rem;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
         }
 
         .student-info h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
             margin: 0;
             font-size: 1.1rem;
         }
@@ -60,35 +197,58 @@ if (!isset($_SESSION['id_no'])) {
 
         .attendance-bar {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: #e5e7eb;
-            border-radius: 3px;
-            margin: 1rem 0;
+            border-radius: 4px;
+            margin: 1.25rem 0;
             overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .attendance-progress {
             height: 100%;
-            background: var(--primary);
-            border-radius: 3px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            border-radius: 4px;
+            transition: width 0.3s ease;
         }
 
         .student-actions {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            margin-top: 1rem;
         }
 
         .btn-icon {
-            padding: 0.5rem;
+            padding: 0.625rem;
             border-radius: 0.5rem;
             background: #f3f4f6;
-            border: none;
+            border: 1px solid var(--border);
             cursor: pointer;
             color: var(--text);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-icon i {
+            font-size: 1.125rem;
         }
 
         .btn-icon:hover {
-            background: #e5e7eb;
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .attendance-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.875rem;
         }
 
         .modal {
@@ -147,31 +307,25 @@ if (!isset($_SESSION['id_no'])) {
     <div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <div class="sidebar-header">
-                <i class="fas fa-fingerprint"></i>
-                <h2>Rural Attendance</h2>
+            <div class="logo-section">
+                <h1><i class="fas fa-fingerprint"></i> Rural Attendance</h1>
+                <p>Students</p>
             </div>
-            
-            <nav>
-                <a href="main.php" class="nav-item">
-                    <i class="fas fa-home"></i>
-                    Dashboard
+            <nav class="sidebar-nav">
+                <a href="main_new.php" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
                 </a>
                 <a href="students.php" class="nav-item active">
-                    <i class="fas fa-users"></i>
-                    Students
+                    <i class="fas fa-users"></i> Students
                 </a>
                 <a href="reports.php" class="nav-item">
-                    <i class="fas fa-chart-bar"></i>
-                    Reports
+                    <i class="fas fa-chart-bar"></i> Reports
                 </a>
                 <a href="settings.php" class="nav-item">
-                    <i class="fas fa-cog"></i>
-                    Settings
+                    <i class="fas fa-cog"></i> Settings
                 </a>
                 <a href="logout.php" class="nav-item">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Logout
+                    <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </nav>
         </div>
@@ -275,6 +429,7 @@ if (!isset($_SESSION['id_no'])) {
     </div>
 
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/darkmode.js"></script>
     <script>
         // Modal Functions
         function showAddStudentModal() {

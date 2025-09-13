@@ -4,6 +4,49 @@ if (!isset($_SESSION['id_no'])) {
     header("Location: login.php");
     exit();
 }
+
+// Establish database connection
+$host = "localhost";
+$user = "root";      
+$pass = "";          
+$db   = "myadmit";   
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Create attendance table if not exists
+$sql = "CREATE TABLE IF NOT EXISTS attendance (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(255),
+    student_name VARCHAR(255),
+    class VARCHAR(50),
+    date DATE,
+    time TIME,
+    status ENUM('present', 'absent') DEFAULT 'present',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES users(id_no)
+)";
+
+$conn->query($sql);
+
+// Get attendance statistics
+$sql = "SELECT 
+    COUNT(*) as total,
+    SUM(CASE WHEN status = 'present' THEN 1 ELSE 0 END) as present,
+    SUM(CASE WHEN status = 'absent' THEN 1 ELSE 0 END) as absent
+FROM attendance 
+WHERE date = CURDATE()";
+
+$stats = $conn->query($sql)->fetch_assoc();
+
+// Get total students
+$sql = "SELECT COUNT(*) as total FROM users";
+$total_students = $conn->query($sql)->fetch_assoc()['total'];
+
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -132,7 +175,7 @@ if (!isset($_SESSION['id_no'])) {
                 <p>Dashboard</p>
             </div>
             <nav class="sidebar-nav">
-                <a href="main.php" class="nav-item active">
+                <a href="main_new.php" class="nav-item active">
                     <i class="fas fa-home"></i> Dashboard
                 </a>
                 <a href="students.php" class="nav-item">
@@ -212,6 +255,7 @@ if (!isset($_SESSION['id_no'])) {
     </div>
 
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/darkmode.js"></script>
     <script>
         // Initialize Charts
         const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');

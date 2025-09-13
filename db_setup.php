@@ -1,71 +1,98 @@
 <?php
-$host = "localhost";
-$user = "root";      
-$pass = "";          
-$db   = "myadmit";   
+function setupDatabase() {
+    $host = "localhost";
+    $user = "root";      
+    $pass = "";          
+    $db   = "myadmit";   
 
-// Create connection
-$conn = new mysqli($host, $user, $pass);
+    try {
+        // Create connection without database
+        $conn = new mysqli($host, $user, $pass);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+        // Check connection
+        if ($conn->connect_error) {
+            throw new Exception("Connection failed: " . $conn->connect_error);
+        }
+
+        // Create database if not exists
+        $sql = "CREATE DATABASE IF NOT EXISTS $db";
+        if (!$conn->query($sql)) {
+            throw new Exception("Error creating database: " . $conn->error);
+        }
+
+        // Select the database
+        $conn->select_db($db);
+
+        // Create users table if not exists
+        $sql = "CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            id_no VARCHAR(255) UNIQUE NOT NULL,
+            password VARCHAR(255) NOT NULL,
+            name VARCHAR(255),
+            class VARCHAR(50),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )";
+
+        if (!$conn->query($sql)) {
+            throw new Exception("Error creating users table: " . $conn->error);
+        }
+
+        // Create attendance table if not exists
+        $sql = "CREATE TABLE IF NOT EXISTS attendance (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            student_id VARCHAR(255),
+            student_name VARCHAR(255),
+            class VARCHAR(50),
+            date DATE,
+            time TIME,
+            status ENUM('present', 'absent') DEFAULT 'present',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (student_id) REFERENCES users(id_no)
+        )";
+
+        if (!$conn->query($sql)) {
+            throw new Exception("Error creating attendance table: " . $conn->error);
+        }
+
+        // Add indexes for better performance
+        $conn->query("CREATE INDEX IF NOT EXISTS idx_attendance_date ON attendance(date)");
+        $conn->query("CREATE INDEX IF NOT EXISTS idx_attendance_student ON attendance(student_id)");
+
+        $conn->close();
+        return true;
+    } catch (Exception $e) {
+        error_log("Database setup error: " . $e->getMessage());
+        return false;
+    }
 }
 
-// Create database if not exists
-$sql = "CREATE DATABASE IF NOT EXISTS myadmit";
-if ($conn->query($sql) === TRUE) {
-    echo "Database created successfully or already exists<br>";
-} else {
-    echo "Error creating database: " . $conn->error . "<br>";
+// Function to connect to database and setup if needed
+function connectDatabase() {
+    $host = "localhost";
+    $user = "root";      
+    $pass = "";          
+    $db   = "myadmit";   
+
+    try {
+        $conn = new mysqli($host, $user, $pass, $db);
+        
+        if ($conn->connect_error) {
+            // Try to setup database if connection fails
+            if (setupDatabase()) {
+                // Try connecting again
+                $conn = new mysqli($host, $user, $pass, $db);
+                if ($conn->connect_error) {
+                    throw new Exception("Connection failed after setup: " . $conn->connect_error);
+                }
+            } else {
+                throw new Exception("Connection failed and setup failed");
+            }
+        }
+        
+        return $conn;
+    } catch (Exception $e) {
+        error_log("Database connection error: " . $e->getMessage());
+        return null;
+    }
 }
-
-// Select the database
-$conn->select_db($db);
-
-// Create users table if not exists
-$sql = "CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_no VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    name VARCHAR(255),
-    class VARCHAR(50),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)";
-
-if ($conn->query($sql) === TRUE) {
-    echo "Users table created successfully or already exists<br>";
-} else {
-    echo "Error creating users table: " . $conn->error . "<br>";
-}
-
-// Create attendance table if not exists
-$sql = "CREATE TABLE IF NOT EXISTS attendance (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    student_id VARCHAR(255),
-    student_name VARCHAR(255),
-    class VARCHAR(50),
-    date DATE,
-    time TIME,
-    status ENUM('present', 'absent') DEFAULT 'present',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (student_id) REFERENCES users(id_no)
-)";
-
-if ($conn->query($sql) === TRUE) {
-    echo "Attendance table created successfully or already exists<br>";
-} else {
-    echo "Error creating attendance table: " . $conn->error . "<br>";
-}
-
-// Add indexes for better performance
-$sql = "CREATE INDEX IF NOT EXISTS idx_attendance_date ON attendance(date)";
-$conn->query($sql);
-
-$sql = "CREATE INDEX IF NOT EXISTS idx_attendance_student ON attendance(student_id)";
-$conn->query($sql);
-
-$conn->close();
-
-echo "Database setup completed successfully!";
 ?>
