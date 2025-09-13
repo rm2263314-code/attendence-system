@@ -297,6 +297,35 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            width: 20px;
+            color: var(--primary);
+        }
+
         .impact-item i {
             font-size: 3rem;
             color: var(--primary);
@@ -553,10 +582,38 @@
             
             <div class="footer-section">
                 <h3>Quick Links</h3>
-                <p><a href="#solution" style="color: #3498db;">Our Solution</a></p>
-                <p><a href="#technology" style="color: #3498db;">Technology</a></p>
-                <p><a href="#demo" style="color: #3498db;">Demo</a></p>
-                <p><a href="#impact" style="color: #3498db;">Impact</a></p>
+                <ul class="footer-links">
+                    <li>
+                        <a href="login.php">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login Portal
+                        </a>
+                    </li>
+                    <li>
+                        <a href="signup.php">
+                            <i class="fas fa-user-plus"></i>
+                            Register School
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#solution">
+                            <i class="fas fa-lightbulb"></i>
+                            Our Solution
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#technology">
+                            <i class="fas fa-microchip"></i>
+                            Technology
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#impact">
+                            <i class="fas fa-chart-line"></i>
+                            Impact
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         
